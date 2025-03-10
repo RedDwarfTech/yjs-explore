@@ -1,0 +1,21 @@
+{
+  "name": "texhub-broadcast",
+  "version": "1.0.29",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --fix",
+    "dev": "export NODE_ENV=dev && ts-node -r tsconfig-paths/register src/app.ts",
+    "build": "tspc"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/app.js"
+    }
+  },
+  "dependencies": {
+    "typescript": "^5.8.2",
+    "yjs": "^13.6.24"
+  }
+}
