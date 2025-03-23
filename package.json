@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --fix",
-    "dev": "export NODE_ENV=dev && ts-node -r tsconfig-paths/register src/app.ts",
-    "build": "tspc"
+    "dev": "export NODE_ENV=dev && ts-node --esm src/app.ts",
+    "build": "tsc"
   },
   "exports": {
     ".": {
@@ -15,7 +15,14 @@
     }
   },
   "dependencies": {
+    "dotenv": "^16.4.7",
+    "lib0": "^0.2.99",
+    "pg": "^8.14.1",
     "typescript": "^5.8.2",
+    "y-protocols": "^1.0.6",
     "yjs": "^13.6.24"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10"
   }
 }
