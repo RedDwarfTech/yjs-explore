@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --fix",
-    "dev": "export NODE_ENV=dev && ts-node --esm src/app.ts",
+    "dev-node": "export NODE_ENV=dev && ts-node --esm src/index.ts",
+    "dev": "vite --host=0.0.0.0 --port=3003",
     "build": "tsc"
   },
   "exports": {
@@ -20,7 +21,19 @@
     "pg": "^8.14.1",
     "typescript": "^5.8.2",
     "y-protocols": "^1.0.6",
-    "yjs": "^13.6.24"
+    "yjs": "^13.6.24",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "web-vitals": "^2.1.4",
+    "vite": "^5.4.14",
+    "vite-plugin-svgr": "^4.3.0",
+    "vite-plugin-top-level-await": "^1.5.0",
+    "vite-plugin-wasm": "^3.4.1",
+    "y-codemirror.next": "^0.3.5",
+    "@codemirror/view": "^6.36.4",
+    "texhub-broadcast": "1.0.41",
+    "@codemirror/state": "^6.5.2",
+    "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
     "@types/node": "^22.13.10"
