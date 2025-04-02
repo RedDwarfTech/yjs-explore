@@ -16,26 +16,29 @@
     }
   },
   "dependencies": {
+    "@babel/runtime": "^7.27.0",
+    "@codemirror/state": "^6.5.2",
+    "@codemirror/view": "^6.36.5",
+    "@uiw/react-split": "^5.9.3",
     "dotenv": "^16.4.7",
-    "lib0": "^0.2.99",
+    "lib0": "^0.2.101",
     "pg": "^8.14.1",
-    "typescript": "^5.8.2",
-    "y-protocols": "^1.0.6",
-    "yjs": "^13.6.24",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "web-vitals": "^2.1.4",
-    "vite": "^5.4.14",
+    "react-split": "^2.0.14",
+    "socket.io-client": "^4.8.1",
+    "texhub-broadcast": "1.0.46",
+    "typescript": "^5.8.2",
+    "vite": "^5.4.16",
     "vite-plugin-svgr": "^4.3.0",
     "vite-plugin-top-level-await": "^1.5.0",
     "vite-plugin-wasm": "^3.4.1",
+    "web-vitals": "^2.1.4",
     "y-codemirror.next": "^0.3.5",
-    "@codemirror/view": "^6.36.4",
-    "texhub-broadcast": "1.0.41",
-    "@codemirror/state": "^6.5.2",
-    "socket.io-client": "^4.8.1"
+    "y-protocols": "^1.0.6",
+    "rdyjs": "^13.6.24"
   },
   "devDependencies": {
-    "@types/node": "^22.13.10"
+    "@types/node": "^22.13.16"
   }
 }
