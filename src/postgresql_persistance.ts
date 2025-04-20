@@ -5,7 +5,7 @@ import { TeXSync } from "./tex_sync.js";
 import * as binary from "lib0/binary.js";
 import pg, { QueryResult } from "pg";
 import { decoding } from "lib0";
-import pkg from 'lib0/dist/encoding.cjs';
+import pkg from "lib0/dist/encoding.cjs";
 
 const { Pool } = pg;
 
@@ -74,14 +74,7 @@ export class PostgresqlPersistance {
           let updateVal: Uint8Array = update.value;
           //Y.logUpdate(updateVal);
           if (update.clock > 1388) {
-            const decoder = decoding.createDecoder(updateVal);
-            Y.transact(ydoc, (transaction) => {
-              transaction.local = false
-              const doc = transaction.doc;
-              let structDecoder = new Y.UpdateDecoderV1(decoder)
-              const ss = Y.readClientsStructRefs(structDecoder, doc);
-              console.log(ss);
-            });
+            Y.applyUpdate(ydoc, updateVal);
           } else {
             Y.applyUpdate(ydoc, updateVal);
           }
@@ -96,3 +89,14 @@ export class PostgresqlPersistance {
     return ydoc;
   }
 }
+
+const a = (updateVal: Uint8Array, ydoc: Y.Doc) => {
+  const decoder = decoding.createDecoder(updateVal);
+  Y.transact(ydoc, (transaction) => {
+    transaction.local = false;
+    const doc = transaction.doc;
+    let structDecoder = new Y.UpdateDecoderV1(decoder);
+    const ss = Y.readClientsStructRefs(structDecoder, doc);
+    console.log(ss);
+  });
+};
