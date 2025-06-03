@@ -6,7 +6,6 @@ import * as Y from "yjs";
 import { yCollab } from "y-codemirror.next";
 import { RefObject } from "react";
 import { Compartment, EditorState, Extension } from "@codemirror/state";
-import { SocketIOClientProvider } from "texhub-broadcast/dist/websocket/conn/socket_io_client_provider";
 import { ManagerOptions, SocketOptions } from "socket.io-client";
 
 const App: React.FC = () => {
@@ -50,7 +49,7 @@ const App: React.FC = () => {
     // setCurYDoc(ydoc);
     const ytext: Y.Text = ydoc.getText(editorAttr.docId);
     const undoManager = new Y.UndoManager(ytext);
-    let wsProvider: SocketIOClientProvider = doSocketIOConn(ydoc, editorAttr);
+    let wsProvider: any = doSocketIOConn(ydoc, editorAttr);
     ydoc.on("update", (update, origin) => {});
     const texEditorState = EditorState.create({
       doc: ytext.toString(),
@@ -92,52 +91,7 @@ const App: React.FC = () => {
         //token: getAccessToken(),
       },
     };
-    const wsProvider: SocketIOClientProvider = new SocketIOClientProvider(
-      process.env.SOCKET_URL!,
-      editorAttr.docId,
-      ydoc,
-      options,
-      {
-        maxBackoffTime: 1000000,
-        params: {
-          // https://self-issued.info/docs/draft-ietf-oauth-v2-bearer.html#query-param
-          docId: editorAttr.docId,
-          // from: "web_tex_editor",
-        },
-      }
-    );
-    const uInfo = localStorage.getItem("userInfo");
-    if (!uInfo) {
-      console.error("user info is null", uInfo);
-      return wsProvider;
-    }
-    const user: any = JSON.parse(uInfo);
-    const ydocUser = {
-      name: user.nickname,
-      //color: userColor.color,
-      //colorLight: userColor.light,
-    };
-    const permanentUserData = new Y.PermanentUserData(ydoc);
-    permanentUserData.setUserMapping(ydoc, ydoc.clientID, ydocUser.name);
-    wsProvider.awareness.setLocalStateField("user", ydocUser);
-    wsProvider.on("connect_error", (err: any) => {
-      console.error("connection error:" + editorAttr.docId, err);
-      // the reason of the error, for example "xhr poll error"
-      console.error(err.message);
-
-      // some additional description, for example the status code of the initial HTTP response
-      console.error(err.description);
-
-      // some additional context, for example the XMLHttpRequest object
-      console.error(err.context);
-    });
-    wsProvider.on("message", (event: MessageEvent) => {
-      debugger;
-      console.log("socketiomessage", event);
-    });
-    wsProvider.on("status", (event: any) => {});
-    return wsProvider;
-  };
+  }
 
   const createExtensions = (options: Record<string, any>): Extension[] => [
     yCollab(options.ytext, options.wsProvider.awareness, options.undoManager),

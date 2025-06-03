@@ -38,11 +38,11 @@ export class PostgresqlPersistance {
       }
       let col_concat = col.join(",");
       const queryPart = "select " + col_concat;
-      const fromPart = " from tex_sync ";
+      const fromPart = " from tex_sync_history ";
       const filterPart =
         " where doc_name = '" +
         docName +
-        "' and content_type='update' and clock>=0 and clock < 4429";
+        "' and content_type='update' and clock>=0";
       let orderPart = " order by clock asc";
       if (opts.reverse) {
         orderPart = " order by clock desc";
@@ -72,20 +72,15 @@ export class PostgresqlPersistance {
         for (let i = 0; i < updates.length; i++) {
           let update: TeXSync = updates[i];
           let updateVal: Uint8Array = update.value;
-          //Y.logUpdate(updateVal);
-          if (update.clock > 1388) {
-            Y.applyUpdate(ydoc, updateVal);
-          } else {
-            Y.applyUpdate(ydoc, updateVal);
-          }
+          Y.applyUpdate(ydoc, updateVal);
+          let txt = ydoc.getText(docName);
+          let txt1 = txt.toString();
+          console.log(txt1);
         }
       } catch (err) {
         console.error("apply update failed", err);
       }
     });
-    let txt = ydoc.getText(docName);
-    let txt1 = txt.toString();
-    console.log(txt1);
     return ydoc;
   }
 }
